@@ -11,27 +11,37 @@ class BlogController extends Controller
 {
     protected $limit=3;
     public function index(){
-        $categories=Category::with(['posts'=>function($query){
-            $query->published();
-        }])->orderBy('title','asc')->get();
+//        $categories=Category::with(['posts'=>function($query){
+//            $query->published();
+//        }])->orderBy('title','asc')->get();
         $posts=Post::with('author')
                     ->latestFirst()
                     ->published()
                     ->simplePaginate($this->limit);
-         return view("blog.index",compact('posts','categories'));
+         return view("blog.index",compact('posts'));
 
     }
-    public function category($id){
-        $categories=Category::with(['posts'=>function($query){
-            $query->published();
-        }])->orderBy('title','asc')->get();
-        $posts=Post::with('author')
-                    ->latestFirst()
-                    ->published()
-                    ->where('category_id',$id)
-                    ->simplePaginate($this->limit);
-         return view("blog.index",compact('posts','categories'));
+    public function category(Category $category){
+        $categoryName=$category->title;
+//       $categories=Category::with(['posts'=>function($query){
+//           $query->published();
+//
+//        }])->orderBy('title','asc')->get();
+//        $posts=Post::with('author')
+//                    ->latestFirst()
+//                    ->published()
+//                    ->where('category_id',$id)
+//                    ->simplePaginate($this->limit);
+//         return view("blog.index",compact('posts','categories'));
 
+       // \DB::enableQueryLog();
+        $posts=$category->posts()
+                        ->with('author')
+                        ->latestFirst()
+                        ->published()
+                        ->simplePaginate($this->limit);
+        //dd(\DB::getQueryLog());
+         return view("blog.index",compact('posts','categoryName'));
     }
 
     public function  show(Post $post){
