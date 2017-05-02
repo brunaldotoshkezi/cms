@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Post;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -47,5 +48,16 @@ class BlogController extends Controller
     public function  show(Post $post){
       // $post=Post::published()->findOrFail($id);
         return view('blog.show',compact('post'));
+    }
+    public function  author(User $author){
+        $authorName=$author->name;
+
+        $posts=$author->posts()
+            ->with('category')
+            ->latestFirst()
+            ->published()
+            ->simplePaginate($this->limit);
+        //dd(\DB::getQueryLog());
+        return view("blog.index",compact('posts','authorName'));
     }
 }
