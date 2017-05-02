@@ -46,7 +46,12 @@ class BlogController extends Controller
     }
 
     public function  show(Post $post){
-      // $post=Post::published()->findOrFail($id);
+        //first method
+       //$viewCount=$post->view_count +1;
+        //$post->update(['view_count'=>$viewCount]);
+
+        //second method
+        $post->increment('view_count');
         return view('blog.show',compact('post'));
     }
     public function  author(User $author){
