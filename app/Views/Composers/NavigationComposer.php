@@ -29,7 +29,7 @@ class NavigationComposer{
             }])->orderBy('title','asc')->get();
 
             $view->with('categories',$categories);
-      
+
     }
     public function composePopularPosts(View $view){
         $popularPost=Post::published()->popular()->take(3)->get();
