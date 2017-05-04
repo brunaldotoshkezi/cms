@@ -5,7 +5,7 @@
     <title>MyBlog | My Awesome Blog</title>
 
     <link href='{{asset("css/css.css")}}' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="{{asset("css/font-awesome.css")}}">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{asset("css/bootstrap.min.css")}}">
     <link rel="stylesheet" href="{{asset("css/custom.css")}}">
 </head>
@@ -57,7 +57,7 @@
         </div>
     </div>
 </footer>
-<script src="/js/jquery.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
+<script src="{{asset("/js/jquery.min.js")}}"></script>
+<script src="{{asset("/js/bootstrap.min.js")}}"></script>
 </body>
 </html>

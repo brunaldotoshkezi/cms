@@ -33,3 +33,5 @@ Auth::routes();
 Route::get('/home', 'Backend\HomeController@index');
 
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+
+Route::resource('/backend/blog', 'Backend\BlogController');
