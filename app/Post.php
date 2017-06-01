@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-   // protected $fillable=['view_count'];
+
+    protected $fillable=['title','slug','excerp','body','published_at','published_at','category_id'];
     protected $dates=['published_at'];
     public function author(){
         return $this->belongsTo(User::class);
@@ -54,6 +55,11 @@ class Post extends Model
         $format="d/m/Y";
         if($showTimes) $format=$format."H:i:s";
         return $this->created_at->format($format);
+    }
+
+    public function setPublishedAtAttribute($value)
+    {
+        $this->attributes['published_at']=$value?:NULL;
     }
 
     public function publicationLabel()
