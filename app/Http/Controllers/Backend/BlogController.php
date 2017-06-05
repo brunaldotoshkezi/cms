@@ -67,9 +67,17 @@ class BlogController extends BackendController
         {
             $image       = $request->file('image');
             $fileName    = $image->getClientOriginalName();
+
             $destination = $this->uploadPath;
 
-            $image->move($destination, $fileName);
+            $successUploaded=$image->move($destination, $fileName);
+            if($successUploaded){
+                $extension    = $image->getClientOriginalExtesion();
+                $thumbnail=str_replace(".{$extension}","_thumb.{$extension}",$fileName);
+                Image::make($destination.'/'.$fileName)
+                    ->resize(250,170)
+                    ->save($destination.'/'.$thumbnail);
+            }
 
             $data['image'] = $fileName;
         }
