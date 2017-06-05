@@ -53,6 +53,7 @@ class BlogController extends BackendController
 //
 //        ]);
         $data=$this->handleRequest($request);
+       // dd($data);
         $request->user()->posts()->create($data);
         return redirect(route('blog.index'))->with('message','Your post is created successfully');
     }

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
 
-    protected $fillable=['title','slug','excerp','body','published_at','published_at','category_id'];
+    protected $fillable=['title','slug','excerp','body','published_at','published_at','category_id','image'];
     protected $dates=['published_at'];
     public function author(){
         return $this->belongsTo(User::class);

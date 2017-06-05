@@ -27,7 +27,7 @@
                            {!! Form::model($post,[
                                'method'=>'POST',
                                'route'=>'blog.store',
-                               'file'=>true
+                               'files'=>TRUE
                            ]) !!}
                             {{ csrf_field() }}
                             <div class="form-group {{ $errors->has('title')? 'has-error':'' }}">
