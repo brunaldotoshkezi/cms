@@ -22,18 +22,19 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="box">
-                        <div class="box-header">
+                        <div class="box-header clearfix">
                             <div class="pull-left">
                                 <a href="{{ route('blog.create') }}" class="btn btn-success"><i class="fa fa-plus"></i> Add New</a>
+                            </div>
+
+                            <div class="pull-right" style="padding:7px 0;">
+                              <a href="?status=all">All</a>|
+                              <a href="?status=trash">Trash</a>
                             </div>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body ">
-                            @if(session('message'))
-                                <div class="alert alert-info">
-                                    {{ session('message') }}
-                                </div>
-                            @endif
+                            @include('backend.blog.message')
                             @if(!$posts->count())
                             <div class="alert alert-danger">
                                 <strong>No records found!</strong>
@@ -53,12 +54,14 @@
                                 @foreach($posts as $post)
                                     <tr>
                                         <td>
+                                          {!! Form::open(['method'=>'DELETE' ,'route'=>['blog.destroy',$post->id]]) !!}
                                             <a href="{{ route('blog.edit',$post->id) }}" class="btn btn-xs btn-default" >
                                                 <i class="fa fa-edit"></i>
                                             </a>
-                                            <a href="{{ route('blog.destroy',$post->id) }}" class="btn btn-xs btn-danger" >
+                                            <button type="submit" class="btn btn-xs btn-danger" >
                                                 <i class="fa fa-times"></i>
-                                            </a>
+                                            </button>
+                                            {!! Form::close() !!}
                                         </td>
                                         <td>{{ $post->title }}</td>
                                         <td>{{ $post->author->name }}</td>

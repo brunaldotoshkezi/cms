@@ -35,7 +35,7 @@ class PostRequest extends FormRequest
         switch($this->method()){
             case 'PUT' :
             case 'PATCH' :
-            $rules['slug']='required|unique:posts,slug'.$this->route('blog');
+               $rules['slug'] = 'required|unique:posts,slug,' . $this->route('blog');
                 break;
         }
         return $rules;

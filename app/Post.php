@@ -5,10 +5,11 @@ namespace App;
 use GrahamCampbell\Markdown\Facades\Markdown;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
-
+    use SoftDeletes;
     protected $fillable=['title','slug','excerp','body','published_at','published_at','category_id','image'];
     protected $dates=['published_at'];
     public function author(){
