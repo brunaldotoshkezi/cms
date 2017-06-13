@@ -58,7 +58,7 @@ return [
             'port' =>  '3306',
             'database' =>  'laravel5_blog',
             'username' =>  'root',
-            'password' =>  'Admin123',
+            'password' =>  '',
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix' => '',
