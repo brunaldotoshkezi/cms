@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests;
 
 class CategoriesController extends BackendController
 {
@@ -27,7 +28,7 @@ class CategoriesController extends BackendController
      */
     public function create()
     {   $category=new Category();
-        return view('categories.create',compact());
+        return view('backend.categories.create',compact('category'));
     }
 
     /**
@@ -36,9 +37,10 @@ class CategoriesController extends BackendController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Requests\CategoryStoreRequest $request)
     {
-        //
+        Category::create($request->all());
+        return redirect("/backend/categories")->with("message","New category created successfully");
     }
 
     /**
@@ -60,7 +62,8 @@ class CategoriesController extends BackendController
      */
     public function edit($id)
     {
-        //
+        $category=Category::findOrFail($id);
+        return view('backend.categories.edit',compact('category'));
     }
 
     /**
@@ -70,9 +73,10 @@ class CategoriesController extends BackendController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Requests\CategoryUpdateRequest $request, $id)
     {
-        //
+        Category::findOrFail($id)->update($request->all());
+        return redirect("/backend/categories")->with("message","Category updated successfully");
     }
 
     /**
@@ -81,8 +85,13 @@ class CategoriesController extends BackendController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Requests\CategoryDestroyRequest $request, $id)
     {
-        //
+        Post::withTrashed()->where('category_id', $id)->update(['category_id' => config('cms.default_category_id')]);
+
+        $category = Category::findOrFail($id);
+        $category->delete();
+
+        return redirect("/backend/categories")->with("message", "Category was deleted successfully!");
     }
 }

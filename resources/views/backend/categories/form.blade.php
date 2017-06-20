@@ -24,5 +24,10 @@
         </div>
 
     </div>
+
+    <div class="box-footer">
+        <button type="submit" class="btn btn-primary" name="button">{{ $category->exists ? 'Update' : 'Save' }}</button>
+        <a href="{{ route('categories.index') }}" class="btn btn-default">Cancel</a>
+    </div>
     <!-- /.box -->
 </div>
